@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using HR.LeaveManagement.Domain;
 using HR.LeaveManagement.Domain.Common;
+using HR.LeaveManagement.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace HR.LeaveManagement.Persistence.DatabaseContext
@@ -18,6 +19,12 @@ namespace HR.LeaveManagement.Persistence.DatabaseContext
         public DbSet<LeaveType> LeaveTypes { get; set; }
         public DbSet<LeaveAllocation> LeaveAllocations { get; set; }
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(HrDatabaseContext).Assembly);
+            base.OnModelCreating(modelBuilder);
+        }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
