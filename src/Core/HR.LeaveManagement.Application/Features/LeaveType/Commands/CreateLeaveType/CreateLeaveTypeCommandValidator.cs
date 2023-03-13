@@ -26,7 +26,8 @@ namespace HR.LeaveManagement.Application.Features.LeaveType.Commands.CreateLeave
                 .WithMessage("Leave type already exists");
         }
 
-        private async Task<bool> LeaveTypeNameUnique(CreateLeaveTypeCommand command, CancellationToken token)
+        private async Task<bool> LeaveTypeNameUnique(CreateLeaveTypeCommand command,
+                                                     CancellationToken token)
             => await _repository.IsLeaveTypeUnique(command.Name);
     }
 }
